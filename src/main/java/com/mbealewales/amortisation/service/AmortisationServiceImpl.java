@@ -39,7 +39,15 @@ public class AmortisationServiceImpl implements AmortisationService {
         if (loanDetails.getMonthlyRepayments() <= 0) {
             throw new BadLoanDetailsException("Monthly loan repayments must be at least 1.");
         }
-
+        if (loanDetails.getMonthlyRepayments() <= 0) {
+            throw new BadLoanDetailsException("Monthly loan repayments must be at least 1.");
+        }
+        if (loanDetails.getBalloonPayment() < 0) {
+            throw new BadLoanDetailsException("Balloon payment must be >= 0.");
+        }
+        if (loanDetails.getDeposit() < 0) {
+            throw new BadLoanDetailsException("Deposit must be >= 0.");
+        }
         if (loanDetails.getYearlyInterestRate() < 0.0) {
             throw new BadLoanDetailsException("Cannot have negative interest rate.");
         }

@@ -4,7 +4,9 @@
 
 There are a couple of unit tests that cover happy path and a couple of exception cases.
 
-Given more time, I would write some integration tests.
+More exception cases are in the implementation than in the tests........
+
+Given more time, I would write some integration tests for the AmortisationController.
 
 ### Simplify the model
 
