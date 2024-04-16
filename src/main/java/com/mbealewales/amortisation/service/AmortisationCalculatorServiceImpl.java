@@ -29,7 +29,7 @@ public class AmortisationCalculatorServiceImpl implements AmortisationCalculator
     
     @Override
     public double calculateMonthlyRepayment(LoanDetails loanDetails) {
-        double r = loanDetails.getYearlyInterestRate() / 100.0;
+        double r = loanDetails.getYearlyInterestRate() / 1200.0;
         double p = loanDetails.getAssetCost() - loanDetails.getDeposit();
         double n = loanDetails.getMonthlyRepayments();
         double b = loanDetails.getBalloonPayment();
@@ -47,7 +47,7 @@ public class AmortisationCalculatorServiceImpl implements AmortisationCalculator
     @Override
     public List<AmortisationInstallment> calculateInstallments(LoanDetails loanDetails, double monthlyRepayment) {
         final List<AmortisationInstallment> installments = new ArrayList<>();
-        final double [] r = { loanDetails.getYearlyInterestRate() / 100.0  };
+        final double [] r = { loanDetails.getYearlyInterestRate() / 1200.0  };
         final double [] p = { loanDetails.getAssetCost() - loanDetails.getDeposit() };
 
         IntStream.range(1, loanDetails.getMonthlyRepayments()).forEach(period -> {

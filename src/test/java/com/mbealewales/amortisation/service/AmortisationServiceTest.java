@@ -34,7 +34,7 @@ public class AmortisationServiceTest {
     private AmortisationCalculatorService amortisationCalculatorService;
 
     @InjectMocks
-    private AmortisationService amortisationService;
+    private AmortisationServiceImpl amortisationService;
 
     /**
      * @TODO This test is just one of several ways in which invalid data is passed

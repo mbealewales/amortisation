@@ -30,6 +30,10 @@ Define e.g. an OpenAPI/Swagger specification to document the REST API.
 Although not part of requirements, a natural next step would be to expand the Rest API
 to allow for amending and deleting schedules etc.
 
+### Support Idempotency
+
+If the REST API requirements are expanded, it would be wise to support idempotency.
+
 ### Performance Improvements
 
 Depending on future use cases, the entities and custom named queries could be cached.

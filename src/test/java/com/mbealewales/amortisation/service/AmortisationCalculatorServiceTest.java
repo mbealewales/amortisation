@@ -7,14 +7,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.mbealewales.amortisation.AmortisationCalculatorService;
 import com.mbealewales.amortisation.entity.LoanDetails;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AmortisationCalculatorServiceTest {
     
     @InjectMocks
-    private AmortisationCalculatorService amortisationCalculatorService;
+    private AmortisationCalculatorServiceImpl amortisationCalculatorService;
 
     private LoanDetails createTestLoanDetails(boolean includeBalloon) {
         final LoanDetails loanDetails = new LoanDetails();
