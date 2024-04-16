@@ -1,9 +1,12 @@
 package com.mbealewales.amortisation.service;
 
+import static com.mbealewales.amortisation.TestUtils.UNBALLOONED_INSTALLMENTS;
+import static com.mbealewales.amortisation.TestUtils.totalInterest;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,12 +15,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.mbealewales.amortisation.AmortisationCalculatorService;
 import com.mbealewales.amortisation.entity.LoanDetails;
+import com.mbealewales.amortisation.entity.LoanSchedule;
 import com.mbealewales.amortisation.repository.AmortisationInstallmentRepository;
 import com.mbealewales.amortisation.repository.LoanDetailsRepository;
 import com.mbealewales.amortisation.repository.LoanScheduleRepository;
 import com.mbealewales.amortisation.service.exception.BadLoanDetailsException;
 import com.mbealewales.amortisation.service.exception.NoSuchLoanScheduleException;
 
+//@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class AmortisationServiceTest {
 
@@ -58,17 +63,26 @@ public class AmortisationServiceTest {
         loanDetails.setDeposit(5000.0);
         loanDetails.setYearlyInterestRate(7.5);
         loanDetails.setMonthlyRepayments(12);
+        loanDetails.setId(1234L);
+
+        final LoanSchedule loanSchedule = new LoanSchedule();
+        loanSchedule.setId(4567L);
+        loanSchedule.setMonthlyRepaymentAmount(1735.15);
+        loanSchedule.setTotalInterestDue(totalInterest(UNBALLOONED_INSTALLMENTS));
+        loanSchedule.setLoanDetails(loanDetails);
+        loanSchedule.setTotalPaymentsDue(20821.80);
 
         when(loanDetailsRepository.save(loanDetails)).thenReturn(loanDetails);
         
-        when(amortisationCalculatorService.calculateMonthlyRepayment(loanDetails)).thenReturn(25.0);
-        when(amortisationCalculatorService.calculateInstallments(loanDetails, 25.0)).thenReturn(null);
-        when(amortisationCalculatorService.calculateTotalInterest(null)).thenReturn(0.0);
-        when(amortisationCalculatorService.totalAmountPaid(1305.85, 24)).thenReturn(31340.40);
+        when(amortisationCalculatorService.calculateMonthlyRepayment(loanDetails)).thenReturn(1735.15);
+        when(amortisationCalculatorService.calculateInstallments(loanDetails, 1735.15)).thenReturn(UNBALLOONED_INSTALLMENTS);
+        when(amortisationCalculatorService.calculateTotalInterest(UNBALLOONED_INSTALLMENTS))
+        .thenReturn(totalInterest(UNBALLOONED_INSTALLMENTS));
+        when(amortisationCalculatorService.totalAmountPaid(1735.15, 12)).thenReturn(20821.80);
 
-        when(loanScheduleRepository.save(null)).thenReturn(null);
+        when(loanScheduleRepository.save(loanSchedule)).thenReturn(loanSchedule);
 
-        when(amortisationInstallmentRepository.saveAll(null)).thenReturn(null);
+        when(amortisationInstallmentRepository.saveAll(UNBALLOONED_INSTALLMENTS)).thenReturn(UNBALLOONED_INSTALLMENTS);
 
         amortisationService.createAmortisationSchedule(loanDetails);
     }

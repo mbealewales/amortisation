@@ -1,6 +1,7 @@
 package com.mbealewales.amortisation.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,7 +97,9 @@ public class AmortisationServiceImpl implements AmortisationService {
        final Optional<LoanSchedule> optLoanSchedule = loanScheduleRepository.findById(loanScheduleId);
        if (optLoanSchedule.isPresent()) {
             final LoanSchedule loanSchedule = optLoanSchedule.get();
-            return Pair.of(this.amortisationInstallmentsRepository.findByLoanSchedule(loanSchedule), loanSchedule);
+            final List<AmortisationInstallment> installments = this.amortisationInstallmentsRepository.findByLoanSchedule(loanSchedule);
+            Collections.sort(installments);
+            return Pair.of(installments, loanSchedule);
        } else {
         throw new NoSuchLoanScheduleException(loanScheduleId);
        }

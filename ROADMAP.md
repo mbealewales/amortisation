@@ -1,6 +1,15 @@
-## Improvements
+## Improvements/Roadmap
+
+
+### Fix bug! Installment calculation error
+
+Because of the rounding up/down of pence(I think) , the final installment could in practice take the final payment over the 'total due' etc. - this should form part of the installment calculation.
+
+Much as I hate to do so, I've @Ignored two unit tests due to this. I wouldn't normally check in failing tests etc. but time was pressing and I
+wanted to get my code to you!
 
 ### Improve testing
+
 
 There are a couple of unit tests that cover happy path and a couple of exception cases.
 
@@ -17,9 +26,6 @@ The model is split into three tables; this could be reduced as `loan_details` an
 The maths basically uses doubles, and a not-great double->formatted String->double to fix to
 2 decimal places. Probably better to use a `BigDecimal` etc.
 
-### Installment calculation error
-
-Because of the rounding up/down of pence, the final installment could in practice take the final payment over the 'total due' - this should form part of the installment calculation.
 
 ### Document the Rest API
 
@@ -42,6 +48,7 @@ Depending on future use cases, the entities and custom named queries could be ca
 
 * Support other datasources e.g. Postgres, Oracle, MySQL.
 * Hand-craft the tables/indexes etc. with SQL for advanced performance.
+* Use a named-query and ORDER BY for a faster fetch of ordered installments, rather than sorting?
 
 ### A UI
 

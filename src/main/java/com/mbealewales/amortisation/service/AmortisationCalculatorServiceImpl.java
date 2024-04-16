@@ -54,12 +54,12 @@ public class AmortisationCalculatorServiceImpl implements AmortisationCalculator
         final double [] p = { loanDetails.getAssetCost() - loanDetails.getDeposit() };
 
         IntStream.rangeClosed(1, loanDetails.getMonthlyRepayments()).forEach(period -> {
-            double i = this.toPoundsPence(r[0] * p[0]);
+            double i = r[0] * p[0];
             double principal = this.toPoundsPence(monthlyRepayment - i);
             p[0] = p[0] - principal;
             // Loan Schedule will be calculated and set later...
             final AmortisationInstallment installment = new AmortisationInstallment(0L,
-             period, monthlyRepayment, principal, i, p[0], null);
+             period, monthlyRepayment, this.toPoundsPence(principal), this.toPoundsPence(i), this.toPoundsPence(p[0]), null);
             
              installments.add(installment);
         });
