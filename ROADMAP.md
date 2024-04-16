@@ -20,6 +20,11 @@ Given more time, I would write some integration tests for the AmortisationContro
 
 The model is split into three tables; this could be reduced as `loan_details` and `loan_schedule` have a 1 to 1 mapping, and so could be represented as one table.
 
+### Expand the model
+
+A nice future requirement would be to expand the model so that schedules have 'friendly names' and 'descriptions'/'comments'.
+A 'customer' etc. entity could also be added etc. etc.
+
 ### Improve the way that the calculation is done
 
 The maths basically uses doubles, and a not-great double->formatted String->double to fix to
