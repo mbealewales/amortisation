@@ -12,6 +12,9 @@ import com.mbealewales.amortisation.entity.LoanDetails;
 
 @Service
 public class AmortisationCalculatorServiceImpl implements AmortisationCalculatorService {
+
+    private static final double MONTHLY_AS_PERCENTAGE = 1200.0;
+
     @Override
     public double toPoundsPence(double val) {
         return Double.parseDouble(String.format("%.2f", val));
@@ -19,7 +22,7 @@ public class AmortisationCalculatorServiceImpl implements AmortisationCalculator
 
     @Override
     public double totalAmountPaid(double monthlyPayment, int numberOfRepayments) {
-        return monthlyPayment * numberOfRepayments;
+        return this.toPoundsPence(monthlyPayment * numberOfRepayments);
     }
 
     @Override
@@ -29,7 +32,7 @@ public class AmortisationCalculatorServiceImpl implements AmortisationCalculator
     
     @Override
     public double calculateMonthlyRepayment(LoanDetails loanDetails) {
-        double r = loanDetails.getYearlyInterestRate() / 1200.0;
+        double r = loanDetails.getYearlyInterestRate() / MONTHLY_AS_PERCENTAGE;
         double p = loanDetails.getAssetCost() - loanDetails.getDeposit();
         double n = loanDetails.getMonthlyRepayments();
         double b = loanDetails.getBalloonPayment();
@@ -47,13 +50,14 @@ public class AmortisationCalculatorServiceImpl implements AmortisationCalculator
     @Override
     public List<AmortisationInstallment> calculateInstallments(LoanDetails loanDetails, double monthlyRepayment) {
         final List<AmortisationInstallment> installments = new ArrayList<>();
-        final double [] r = { loanDetails.getYearlyInterestRate() / 1200.0  };
+        final double [] r = { loanDetails.getYearlyInterestRate() / MONTHLY_AS_PERCENTAGE  };
         final double [] p = { loanDetails.getAssetCost() - loanDetails.getDeposit() };
 
-        IntStream.range(1, loanDetails.getMonthlyRepayments()).forEach(period -> {
+        IntStream.rangeClosed(1, loanDetails.getMonthlyRepayments()).forEach(period -> {
             double i = this.toPoundsPence(r[0] * p[0]);
             double principal = this.toPoundsPence(monthlyRepayment - i);
             p[0] = p[0] - principal;
+            // Loan Schedule will be calculated and set later...
             final AmortisationInstallment installment = new AmortisationInstallment(0L,
              period, monthlyRepayment, principal, i, p[0], null);
             
