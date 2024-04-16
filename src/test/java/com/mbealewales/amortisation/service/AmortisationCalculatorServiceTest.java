@@ -12,7 +12,7 @@ import com.mbealewales.amortisation.entity.LoanDetails;
 
 import static com.mbealewales.amortisation.TestUtils.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class AmortisationCalculatorServiceTest {
 
     @InjectMocks

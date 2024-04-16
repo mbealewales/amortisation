@@ -22,8 +22,7 @@ import com.mbealewales.amortisation.repository.LoanScheduleRepository;
 import com.mbealewales.amortisation.service.exception.BadLoanDetailsException;
 import com.mbealewales.amortisation.service.exception.NoSuchLoanScheduleException;
 
-//@Ignore
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class AmortisationServiceTest {
 
     @Mock
@@ -66,7 +65,7 @@ public class AmortisationServiceTest {
         loanDetails.setId(1234L);
 
         final LoanSchedule loanSchedule = new LoanSchedule();
-        loanSchedule.setId(4567L);
+        loanSchedule.setId(0L);
         loanSchedule.setMonthlyRepaymentAmount(1735.15);
         loanSchedule.setTotalInterestDue(totalInterest(UNBALLOONED_INSTALLMENTS));
         loanSchedule.setLoanDetails(loanDetails);
