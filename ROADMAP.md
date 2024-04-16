@@ -3,13 +3,12 @@
 
 ### Fix bug! Installment calculation error
 
-Because of the rounding up/down of pence(I think) , the final installment could in practice take the final payment over the 'total due' etc. - this should form part of the installment calculation.
+Because of the rounding up/down of pence (I think), the final installment could in practice take the final payment over the 'total due' etc. - this should form part of the installment calculation.
 
 Much as I hate to do so, I've @Ignored two unit tests due to this. I wouldn't normally check in failing tests etc. but time was pressing and I
 wanted to get my code to you!
 
 ### Improve testing
-
 
 There are a couple of unit tests that cover happy path and a couple of exception cases.
 
@@ -24,7 +23,7 @@ The model is split into three tables; this could be reduced as `loan_details` an
 ### Improve the way that the calculation is done
 
 The maths basically uses doubles, and a not-great double->formatted String->double to fix to
-2 decimal places. Probably better to use a `BigDecimal` etc.
+2 decimal places. Probably better to use a `BigDecimal` etc.?
 
 
 ### Document the Rest API
@@ -57,6 +56,10 @@ A React/Angular/Vue3 application providing a 'nice' UI for a customer or agent.
 ### Authentication/Authorization
 
 Secure the application using OAuth2 etc.
+
+### Postman scripts
+
+As a nice to have to aid development, it would be good to include POSMAN etc. scripts for testing the Rest API.
 
 ### CI/CD
 
